@@ -1,10 +1,12 @@
 from linkedList import Node
+from linkedList import LinkedList
 
 n1 = Node(1)
 n2 = Node(2)
 n3 = Node(3)
 
-n1.next = n2
-n2.next = n3
-
-n1.print_list()
+lst = LinkedList()
+lst.add_first(n1)
+lst.add_first(n2)
+lst.add_first(n3)
+lst.print_list()
