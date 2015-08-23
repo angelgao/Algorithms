@@ -1,24 +1,34 @@
 
 class QuickUnionUF:
     """Data structure for union find:
-    An integer array to represent a tree of connected nodes
-    id[i] is the parent of i and
+    Two integer array to represent a tree of connected nodes and its size
+    numArr[i] is the parent of i and size[i] is its size.
     two nodes A and B are connected IFF they have the same root"""
     numArr = []
+    size = []
     length = 0
     def __init__(self, n):
         self.length = n
         for i in xrange(0,self.length):
             self.numArr.append(i)
+            self.size.append(1)
 
     def Root(self, i):
         while(i != self.numArr[i]):
+            self.numArr[i] = self.numArr[self.numArr[i]] #path compression
             i = self.numArr[i]
         return i
 
     def Union(self,a,b):
-        #Make root of B a child of A
-        self.numArr[self.Root(a)] = self.Root(b)
+        i = self.Root(a)
+        j = self.Root(b)
+        #always merge the smaller tree as a child of the bigger
+        if self.size[i] < self.size[j]:
+            self.size[j] += self.size[i] #update size
+            self.numArr[i] = j
+        else:
+            self.size[i] += self.size[j] #update size
+            self.numArr[j] = i
 
     def Connected(self,a,b):
         #Check that a and b have the same root
