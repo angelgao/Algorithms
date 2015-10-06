@@ -14,6 +14,17 @@ class LinkedList:
         node.next = self.head
         self.head = node
         self.length += 1
+    
+    def reverse(self):
+        temp = self.head.next
+        self.head.next = None
+
+        while temp != None:
+            current = temp
+            temp = temp.next
+            current.next = self.head
+            self.head = current
+
 
 class Node:
     def __init__(self, cargo=None, next=None):
